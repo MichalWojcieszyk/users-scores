@@ -11,7 +11,10 @@ config :users_scores, UsersScores.Repo,
   hostname: "localhost",
   database: "users_scores_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  pool_size: 10,
+  queue_target: 3000
+
+config :users_scores, init_min_number: 40
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
