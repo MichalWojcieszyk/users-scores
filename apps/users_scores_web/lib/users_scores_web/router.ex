@@ -5,7 +5,9 @@ defmodule UsersScoresWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", UsersScoresWeb do
+  scope "/", UsersScoresWeb do
     pipe_through :api
+
+    get "/", UsersScoreController, :index
   end
 end
