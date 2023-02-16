@@ -8,7 +8,7 @@ defmodule UsersScores.User.MutatorTest do
   setup do
     Ecto.Adapters.SQL.query(Repo, "ALTER SEQUENCE users_id_seq RESTART WITH 1")
 
-    date_time_utc_now = DateTime.truncate(DateTime.utc_now(), :second)
+    date_time_utc_now = User.Helpers.timestamp_utc_now()
     params = %{inserted_at: date_time_utc_now, updated_at: date_time_utc_now}
 
     {:ok, params: params}

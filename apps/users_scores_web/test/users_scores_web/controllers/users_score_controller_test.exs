@@ -9,7 +9,7 @@ defmodule UsersScoresWeb.UsersScoreControllerTest do
 
     PointsUpdater.clean_state()
 
-    date_time_utc_now = DateTime.truncate(DateTime.utc_now(), :second)
+    date_time_utc_now = User.Helpers.timestamp_utc_now()
     Ecto.Adapters.SQL.query(Repo, "ALTER SEQUENCE users_id_seq RESTART WITH 1")
     params = %{inserted_at: date_time_utc_now, updated_at: date_time_utc_now, points: 50}
 

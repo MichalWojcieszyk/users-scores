@@ -3,13 +3,15 @@ defmodule UsersScores.PointsUpdaterTest do
 
   alias UsersScores.{PointsUpdater, Repo, User}
 
+  @tests_min_number 40
+
   setup do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(UsersScores.Repo)
     Ecto.Adapters.SQL.Sandbox.mode(Repo, {:shared, self()})
 
     PointsUpdater.clean_state()
 
-    date_time_utc_now = DateTime.truncate(DateTime.utc_now(), :second)
+    date_time_utc_now = User.Helpers.timestamp_utc_now()
     params = %{inserted_at: date_time_utc_now, updated_at: date_time_utc_now, points: 50}
     :ok = User.Mutator.create_users(100, params)
   end
@@ -19,7 +21,7 @@ defmodule UsersScores.PointsUpdaterTest do
       assert %{timestamp: nil, users: [%{points: 50}, %{points: 50}]} =
                PointsUpdater.return_users()
 
-      assert %{min_number: 40, timestamp: %DateTime{}} =
+      assert %{min_number: @tests_min_number, timestamp: %DateTime{}} =
                PointsUpdater |> Process.whereis() |> :sys.get_state()
     end
   end
@@ -31,7 +33,7 @@ defmodule UsersScores.PointsUpdaterTest do
 
       PointsUpdater.clean_state()
 
-      assert %{min_number: 40, timestamp: nil} =
+      assert %{min_number: @tests_min_number, timestamp: nil} =
                PointsUpdater |> Process.whereis() |> :sys.get_state()
     end
   end

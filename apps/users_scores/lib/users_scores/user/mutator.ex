@@ -21,7 +21,7 @@ defmodule UsersScores.User.Mutator do
 
   @spec update_users_points(integer, integer, pos_integer) :: :ok
   def update_users_points(first_id \\ 1, last_id \\ 1_000_000, chunk_every \\ 1000) do
-    date_time_now = DateTime.utc_now()
+    date_time_now = User.Helpers.timestamp_utc_now()
 
     collection = first_id..last_id |> Stream.chunk_every(chunk_every)
 

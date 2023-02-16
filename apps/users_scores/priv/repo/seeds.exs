@@ -12,7 +12,7 @@
 
 alias UsersScores.User
 
-date_time_utc_now = DateTime.truncate(DateTime.utc_now(), :second)
+date_time_utc_now = User.Helpers.timestamp_utc_now()
 params = %{inserted_at: date_time_utc_now, updated_at: date_time_utc_now}
 
 IO.puts("There will be 1000000 users created")

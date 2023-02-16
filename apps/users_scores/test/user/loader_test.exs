@@ -4,7 +4,7 @@ defmodule UsersScores.User.LoaderTest do
   alias UsersScores.{Repo, User}
 
   setup do
-    date_time_utc_now = DateTime.truncate(DateTime.utc_now(), :second)
+    date_time_utc_now = User.Helpers.timestamp_utc_now()
 
     {:ok, date_time_utc_now: date_time_utc_now}
   end
