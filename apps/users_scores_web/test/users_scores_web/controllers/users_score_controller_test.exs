@@ -1,11 +1,14 @@
 defmodule UsersScoresWeb.UsersScoreControllerTest do
-  use UsersScoresWeb.ConnCase, async: false
+  use UsersScoresWeb.ConnCase, async: true
 
-  alias UsersScores.{Repo, User}
+  alias UsersScores.{PointsUpdater, Repo, User}
 
   setup do
-    allow = Process.whereis(PointsState)
+    allow = Process.whereis(PointsUpdater)
     Ecto.Adapters.SQL.Sandbox.allow(Repo, self(), allow)
+
+    PointsUpdater.clean_state()
+
     date_time_utc_now = DateTime.truncate(DateTime.utc_now(), :second)
     Ecto.Adapters.SQL.query(Repo, "ALTER SEQUENCE users_id_seq RESTART WITH 1")
     params = %{inserted_at: date_time_utc_now, updated_at: date_time_utc_now, points: 50}

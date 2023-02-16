@@ -1,5 +1,5 @@
 defmodule UsersScores.User.LoaderTest do
-  use UsersScores.DataCase, async: true
+  use UsersScores.DataCase, async: false
 
   alias UsersScores.{Repo, User}
 
